@@ -18,8 +18,9 @@
 use clone::{Clone, DeepClone};
 use cmp::{Eq, Ord};
 use mem::size_of;
-use ops::{Add, Sub, Mul, Div, Rem, Neg};
-use ops::{Not, BitAnd, BitOr, BitXor, Shl, Shr};
+use ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign,
+          Rem, RemAssign, Neg, Not, BitAnd, BitAndAssign, BitOr, BitOrAssign,
+          BitXor, BitXorAssign, Shl, ShlAssign, Shr, ShrAssign};
 use option::{Option, Some, None};
 
 pub mod strconv;
@@ -28,10 +29,15 @@ pub mod strconv;
 pub trait Num: Eq + Zero + One
              + Neg<Self>
              + Add<Self,Self>
+             + AddAssign<Self>
              + Sub<Self,Self>
+             + SubAssign<Self>
              + Mul<Self,Self>
+             + MulAssign<Self>
              + Div<Self,Self>
-             + Rem<Self,Self> {}
+             + DivAssign<Self>
+             + Rem<Self,Self>
+             + RemAssign<Self> {}
 
 pub trait Orderable: Ord {
     // These should be methods on `Ord`, with overridable default implementations. We don't want
@@ -388,10 +394,15 @@ pub trait Bounded {
 pub trait Bitwise: Bounded
                  + Not<Self>
                  + BitAnd<Self,Self>
+                 + BitAndAssign<Self>
                  + BitOr<Self,Self>
+                 + BitOrAssign<Self>
                  + BitXor<Self,Self>
+                 + BitXorAssign<Self>
                  + Shl<Self,Self>
-                 + Shr<Self,Self> {
+                 + ShlAssign<Self>
+                 + Shr<Self,Self>
+                 + ShrAssign<Self> {
     /// Returns the number of bits set in the number.
     ///
     /// # Example

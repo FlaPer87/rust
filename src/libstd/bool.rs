@@ -39,6 +39,7 @@ use num::FromPrimitive;
 
 #[cfg(not(test))] use cmp::{Eq, Ord, TotalOrd, Ordering};
 #[cfg(not(test))] use ops::{Not, BitAnd, BitOr, BitXor};
+#[cfg(not(test))] use ops::{BitAndAssign, BitOrAssign, BitXorAssign};
 #[cfg(not(test))] use default::Default;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -230,6 +231,9 @@ impl BitAnd<bool, bool> for bool {
 }
 
 #[cfg(not(test))]
+impl BitAndAssign<bool> for bool {}
+
+#[cfg(not(test))]
 impl BitOr<bool, bool> for bool {
     /// Disjunction of two boolean values.
     ///
@@ -249,6 +253,9 @@ impl BitOr<bool, bool> for bool {
     #[inline]
     fn bitor(&self, b: &bool) -> bool { *self | *b }
 }
+
+#[cfg(not(test))]
+impl BitOrAssign<bool> for bool {}
 
 #[cfg(not(test))]
 impl BitXor<bool, bool> for bool {
@@ -272,6 +279,9 @@ impl BitXor<bool, bool> for bool {
     #[inline]
     fn bitxor(&self, b: &bool) -> bool { *self ^ *b }
 }
+
+#[cfg(not(test))]
+impl BitXorAssign<bool> for bool {}
 
 #[cfg(not(test))]
 impl Ord for bool {

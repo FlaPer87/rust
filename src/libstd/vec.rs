@@ -624,7 +624,7 @@ pub mod traits {
     use clone::Clone;
     use cmp::{Eq, Ord, TotalEq, TotalOrd, Ordering, Equiv};
     use iter::order;
-    use ops::Add;
+    use ops::{Add, AddAssign};
 
     impl<'a,T:Eq> Eq for &'a [T] {
         fn eq(&self, other: & &'a [T]) -> bool {
@@ -716,10 +716,19 @@ pub mod traits {
         }
     }
 
+    // There can be no AddAssign to match the above Add; &mut [T] cannot be extended.
+
     impl<T:Clone, V: Vector<T>> Add<V, ~[T]> for ~[T] {
         #[inline]
         fn add(&self, rhs: &V) -> ~[T] {
             self.as_slice() + rhs.as_slice()
+        }
+    }
+
+    impl<'a, T: Clone, V: Vector<T>> AddAssign<V> for ~[T] {
+        #[inline]
+        fn add_assign(&mut self, rhs: &V) {
+            self.push_all(rhs.as_slice());
         }
     }
 }

@@ -1372,7 +1372,7 @@ pub mod traits {
     use container::Container;
     use cmp::{TotalOrd, Ordering, Less, Equal, Greater, Eq, Ord, Equiv, TotalEq};
     use iter::Iterator;
-    use ops::Add;
+    use ops::{Add, AddAssign};
     use option::{Some, None};
     use str::{Str, StrSlice, OwnedStr, eq_slice};
 
@@ -1382,6 +1382,24 @@ pub mod traits {
             let mut ret = self.to_owned();
             ret.push_str(*rhs);
             ret
+        }
+    }
+
+    // There can be no AddAssign to match the above Add; &mut str isn't a valid type
+
+    impl<'a> Add<&'a str, ~str> for ~str {
+        #[inline]
+        fn add(&self, rhs: & &'a str) -> ~str {
+            let mut ret = self.to_owned();
+            ret.push_str(*rhs);
+            ret
+        }
+    }
+
+    impl<'a> AddAssign<&'a str> for ~str {
+        #[inline]
+        fn add_assign(&mut self, rhs: & &'a str) {
+            self.push_str(*rhs);
         }
     }
 

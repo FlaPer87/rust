@@ -31,9 +31,12 @@ Rust's prelude has three main parts:
 // Reexported core operators
 pub use kinds::{Freeze, Pod, Send, Sized};
 pub use ops::{Add, Sub, Mul, Div, Rem, Neg, Not};
+pub use ops::{AddAssign, SubAssign, MulAssign, DivAssign, RemAssign};
 pub use ops::{BitAnd, BitOr, BitXor};
+pub use ops::{BitAndAssign, BitOrAssign, BitXorAssign};
 pub use ops::{Drop};
 pub use ops::{Shl, Shr, Index};
+pub use ops::{ShlAssign, ShrAssign};
 pub use option::{Option, Some, None};
 pub use result::{Result, Ok, Err};
 
