@@ -745,7 +745,7 @@ impl<'cx, 'tcx> SelectionContext<'cx, 'tcx> {
                 }
 
                 // No explicit impls were declared for this type, consider the fallback rules.
-                if candidates.vec.is_empty() {
+                if candidates.vec.is_empty() && !candidates.ambiguous {
                     try!(self.assemble_builtin_bound_candidates(bound, stack, &mut candidates));
                 }
             }
